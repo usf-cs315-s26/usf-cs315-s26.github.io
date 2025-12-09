@@ -1,6 +1,6 @@
 ---
-name: "TBD"
+name: "Julia Gomez"
 role: "Teaching Assistant"
-email: "person2@example.com"
+email: "jgomez30@dons.usfca.edu"
 office_hours: "TBD in CS Labs"
 ---

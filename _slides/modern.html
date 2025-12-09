@@ -1,0 +1,239 @@
+---
+layout: raw
+---
+
+{% assign img_base = site.url | append: site.baseurl | append: "/assets/img/modern-processors" %}
+
+# Modern Processors
+
+After adding pipelining to our single-cycle processor, we used register forwarding to keep the pipeline full. But there's more...
+
+---
+
+## Branch Prediction
+
+```text
+  li t0, 0
+loop:
+  lb t1, (a0)
+  beq zero, t1, done
+  addi a0, a0, 1
+  addi t0, t0, 1
+  j loop
+done:
+  mv a0, t0
+  ret
+```
+
+Would you predict the BEQ branch to be more frequently taken, or not taken?
+---
+
+## Predictor strategies
+
+1. Static: predict conditional are not taken, but unconditional branches are always taken <!-- .element: class="fragment" -->
+1. Dynamic: saturating counter records historical behavior of conditional branch at a particular memory location <!-- .element: class="fragment" -->
+1. Multi-level: record not just the last branch 0/1, but a history of N loops. Predicts branches taken every N times <!-- .element: class="fragment" -->
+
+---
+
+## Misprediction
+
+1. What if you guess wrong? <!-- .element: class="fragment" -->
+1. Some performance penalty, obviously <!-- .element: class="fragment" -->
+1. Worse, partially-executed instructions have side effects <!-- .element: class="fragment" -->
+
+---
+
+## Spectre and Meltdown
+
+1. Even if an instruction is flushed from the pipeline, it can leave artifacts in the data cache <!-- .element: class="fragment" -->
+1. The data cache is/was shared among user-space programs <!-- .element: class="fragment" -->
+1. Malicious software can access secrets in the data cache on branch misprediction <!-- .element: class="fragment" -->
+
+source:<!-- .element: class="fragment" --> https://spectreattack.com/ <!-- .element: class="fragment" -->
+
+---
+
+## Load Address Prediction
+
+1. We saw how memory LD stalls the pipeline by inserting a "bubble" <!-- .element: class="fragment" -->
+1. If you can predict the Memory Target Address, you can free up an ALU <!-- .element: class="fragment" -->
+1. Can you imagine any problems? <!-- .element: class="fragment" -->
+
+---
+
+![SLAP Vulnerability]({{ img_base }}/slap.webp)
+
+source: http://predictors.fail
+
+---
+
+## Load Value Prediction
+
+```text
+sb t1, (a0)
+// more code
+lb t2, (a0)
+```
+
+Can we predict what the LB will produce, eliminating the Load Stall Bubble?
+
+---
+
+## Superscalar
+
+1. If one Decoder is good, would more be better? <!-- .element: class="fragment" -->
+1. How about ALUs? We seem to have lots of calculations to do <!-- .element: class="fragment" -->
+
+---
+
+![Superscalar Pipeline]({{ img_base }}/Superscalarpipeline.svg)
+
+source: https://commons.wikimedia.org/w/index.php?curid=9748747
+---
+
+## Out of Order
+
+1. With a superscalar pipeline, a processor may "issue" instructions to a core to execute <!-- .element: class="fragment" -->
+1. Since we don't know exactly when each core will complete its instruction, we must prevent races by issuing only independent instructions <!-- .element: class="fragment" -->
+1. Instructions dependent on previous results must be executed in-order <!-- .element: class="fragment" -->
+
+---
+
+```text
+add a0, a0, 4
+lb t0, (a0)
+addi t0, t0, 32
+add a1, a0, 4
+lb t1, (a1)
+addi t1, t1, 32
+```
+
+Instructions dependent on the final value of t0 and t1 may be executed out-of-order. 
+
+Can you imagine any problems? <!-- .element: class="fragment" -->
+
+---
+
+```text
+add t0, t1, t2
+sub t1, t3, t4
+```
+
+If executed out-of-order, is this a hazard?
+
+Write-after-read on t1?
+
+---
+
+## Register Renaming
+
+```text
+add t0, t1, t2
+sub t1, t3, t4
+```
+
+SUB does not depend on t1, but odd register allocation makes it look like a hazard
+
+```text
+add t0, rA, t2
+sub rB, t3, t4
+```
+
+Processors can remove the hazard by using internal registers to "rename" t1
+
+---
+
+## big.LITTLE
+
+Do you want powerful processors or long battery life?
+
+Both!
+
+---
+
+## Having your cake and ...
+
+1. ARM's big.LITTLE microarchitecture includes efficient (slower) cores in the same silicon package as fast (power-hungry) cores <!-- .element: class="fragment" -->
+1. Requires cooperation from the operating system to know when a process should be scheduled onto a high-power core vs. onto an efficient core <!-- .element: class="fragment" -->
+1. Multiple architectures, multiple clocks at different frequencies <!-- .element: class="fragment" -->
+
+---
+
+# Apple Silicon
+
+---
+
+## History
+
+1. Founded in 2003, P.A. Semi had a team of top-tier processor designers with experience in powerful and efficient designs <!-- .element: class="fragment" -->
+1. Apple acquired P.A. Semi in 2008, becoming the basis for mobile (A-series) and desktop (M-series) processors, eventually replacing Intel X86 in Macs <!-- .element: class="fragment" -->
+1. A-series and M-series processors use every clever microarchitecture trick in the book (source: AnandTech) <!-- .element: class="fragment" -->
+
+---
+
+![Apple Firestorm]({{ img_base }}/Firestorm.png)
+
+---
+
+## More Acquisitions
+
+1. In 2019, a group of engineers left Apple to start an ARM-based server company called Nuvia <!-- .element: class="fragment" -->
+1. Nuvia was not super successful since Intel x86 is dominant in the server/datacenter market <!-- .element: class="fragment" -->
+1. Qualcomm acquired Nuvia and their ARM microarchitecture is the basis of the Snapdragon X Elite <!-- .element: class="fragment" -->
+
+---
+
+## Semiconductor Process 
+
+1. Taiwan Semiconductor (TSMC) is a top-tier chip foundry, specializing in physics, chemistry, and materials science <!-- .element: class="fragment" -->
+1. TSMC's process size (gate length) is in the single-digit nanometer scale <!-- .element: class="fragment" -->
+1. The atomic width of silicon (Si) is 0.5nm <!-- .element: class="fragment" -->
+1. Apple was reported to have purchased all of TSMC's 3nm capacity in 2022 (source: ExtremeTech) <!-- .element: class="fragment" -->
+
+---
+
+## Takeaways
+
+1. Processors do a lot of work to make machine code perform well <!-- .element: class="fragment" -->
+1. Clever microarchitecture goes a long way, but... <!-- .element: class="fragment" -->
+1. Physical limitations of the silicon substrate are the challenge of our time <!-- .element: class="fragment" -->
+
+---
+
+# Data General
+
+---
+
+## Soul Of A New Machine
+
+1. Data General was a minicomputer manufacturer in Boston in the 70s and 80s <!-- .element: class="fragment" -->
+1. The work is chronicled in <!-- .element: class="fragment" --> [The Soul of a New Machine](https://en.wikipedia.org/wiki/The_Soul_of_a_New_Machine) <!-- .element: class="fragment" -->
+1. "Not everything worth doing is worth doing well" <!-- .element: class="fragment" -->
+1. You might recognize one of DG's designs <!-- .element: class="fragment" -->
+
+---
+
+![DG Dasher terminal]({{ img_base }}/dasher.png)
+
+---
+
+## My First Job
+
+1. My first job after college was doing performance analysis on the Data General AViiON workstations <!-- .element: class="fragment" -->
+1. These UNIX (DG/UX) machines ran on the Motorola 88110 processor, which was one of the first commercial out-of-order implementations <!-- .element: class="fragment" -->
+
+---
+
+![DG AViiON workstation]({{ img_base }}/maverick.jpg)
+
+---
+
+## [TV ad](http://www.georgelois.com/data-general.html)
+
+---
+
+## Other Videos
+
+1. If you have the time and interest, I recommend [High Yield](https://www.youtube.com/@HighYield) on YouTube
+1. Superstar designer [Jim Keller](https://www.youtube.com/results?search_query=jim+keller) is interesting and approachable

@@ -1,6 +1,6 @@
 ---
-name: "TBD"
+name: "Ankit Mukhopadhyay"
 role: "Teaching Assistant"
-email: "user3@example.com"
+email: "amukhopadhyay@dons.usfca.edu"
 office_hours: "TBD in CS Labs"
 ---

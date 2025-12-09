@@ -1,0 +1,138 @@
+---
+layout: raw
+---
+
+{% assign img_base = site.url | append: site.baseurl | append: "/assets/img/gpu" %}
+
+# GPU Architecture
+
+---
+
+## Defining Terms
+
+1. CPU: processes integers, want minimum latency <!-- .element: class="fragment" -->
+1. GPU: processes floating point numbers, want maximum throughput <!-- .element: class="fragment" -->
+1. Microarchitecture tradeoffs to follow <!-- .element: class="fragment" -->
+
+---
+
+## Data Structures
+
+1. Scalar - a single value, int or float <!-- .element: class="fragment" -->
+1. Vector - an array of values <!-- .element: class="fragment" -->
+1. Matrix - a two-dimensional table of values, R x C <!-- .element: class="fragment" -->
+1. Tensor - an array of matrices R x C x T <!-- .element: class="fragment" -->
+
+---
+
+## Graphics in One Slide
+
+1. Rasterization is the construction of a frame buffer in memory where <!-- .element: class="fragment" -->
+1. Pixels are shaded and textured according to a matrix transformation <!-- .element: class="fragment" -->
+1. The frame buffer is copied into video memory to produce the image you see <!-- .element: class="fragment" -->
+1. Apple: Unified Memory <!-- .element: class="fragment" -->
+
+---
+
+## ML in One Slide
+
+1. Weights in a neural network are propagated (forward and backward) according to a matrix transformation <!-- .element: class="fragment" -->
+1. Weights are adjusted until inferences are good enough, according to the gradient of the loss function <!-- .element: class="fragment" -->
+
+---
+
+## Linear Algebra in One Slide
+
+1. To transform an MxM matrix using an NxN matrix, perform a calculation like this <!-- .element: class="fragment" -->
+
+![matrix multiply setup]({{ img_base }}/matrix-1.svg) <!-- .element: class="fragment" -->
+![matrix multiply math]({{ img_base }}/matrix-2.svg) <!-- .element: class="fragment" -->
+
+[Source](https://en.wikipedia.org/wiki/Matrix_multiplication_algorithm) <!-- .element: class="fragment" -->
+---
+
+## Floating point numbers
+
+1. Both graphics and AI/ML applications use floating point numbers rather than integers <!-- .element: class="fragment" -->
+1. Floating point numbers are represented using a fraction, an exponent, and a sign bit  <!-- .element: class="fragment" -->
+1. In the IEEE 754 standard, single-precision floats have 1 sign bit, 8 bits for the exponent (2^exp), and 23 bits for the fraction (a.k.a. "mantissa" or "significand")  <!-- .element: class="fragment" -->
+1. [Conversion process](https://www.wikihow.com/Convert-a-Number-from-Decimal-to-IEEE-754-Floating-Point-Representation)  <!-- .element: class="fragment" -->
+
+---
+
+## GPU Microarchitecture
+
+1. Don't need: fancy branch prediction, pipeline trickery, high clock frequency <!-- .element: class="fragment" -->
+1. Do need: lots of multiply-capable FPU, lots of memory bandwidth, lots of vector registers <!-- .element: class="fragment" -->
+1. More like a bulldozer than a scalpel  <!-- .element: class="fragment" -->
+1. "Strip mining" <!-- .element: class="fragment" -->
+
+---
+
+![blackwell block diagram]({{ img_base }}/maxwell.jpg)
+
+---
+
+## How to schedule FPUs
+
+1. Embed a RISC-V processor!
+2. [Source](https://www.tomshardware.com/pc-components/gpus/nvidia-to-ship-a-billion-of-risc-v-cores-in-2024)
+
+---
+## What about TPUs?
+
+1. Recall a tensor is a vector of matrices <!-- .element: class="fragment" -->
+1. A TPU is like a GPU in the sense that it uses wide registers and memory bandwidth to accelerate matrix multiply <!-- .element: class="fragment" -->
+1. TPUs don't need all the graphics rasterization circuitry, plus the GPU is busy doing graphics <!-- .element: class="fragment" -->
+1. Google: [hardware cards](https://blog.google/feed/trillium-tpus/) <!-- .element: class="fragment" -->for DC ops, Apple: "Neural" processing unit for iOS/Mac computers <!-- .element: class="fragment" -->
+
+---
+
+## [RISC-V Vector Extension](https://github.com/riscvarchive/riscv-v-spec/releases/download/v1.0/riscv-v-spec-1.0.pdf)
+
+1. The RISC-V spec contains a vector extension with its own opcode, but still a 32-bit instruction word <!-- .element: class="fragment" -->
+1. Vector instructions start with V <!-- .element: class="fragment" -->
+1. The number and width of vector registers is implementation-dependent  <!-- .element: class="fragment" -->
+1. VSETVL configures the vector unit's Vector Length (VL) which is the number of elements, and returns the value of VL in RD <!-- .element: class="fragment" -->
+
+---
+
+## RISC-V Vector Instructions
+
+1. Load from memory into extra-wide vector registers  <!-- .element: class="fragment" -->
+2. Arithmetic - Do math on one or more vector registers  <!-- .element: class="fragment" -->
+3. Store from vector registers back to memory in one write <!-- .element: class="fragment" -->
+
+---
+
+## Do Beagles support the V extension?
+
+Sadly, an old version <!-- .element: class="fragment" -->
+
+[Source](https://chipsandcheese.com/p/alibabat-heads-xuantie-c910)<!-- .element: class="fragment" --> 
+
+---
+
+![xuantie910 block diagram]({{ img_base }}/xuantie910.png)
+
+---
+## Vector [Show And Tell](https://github.com/usf-cs315-s25/inclass/tree/main/week15/vector) 
+
+---
+
+## CS 315 for GPU?
+
+1. We would love to explore GPU arch the way we do for CPUs <!-- .element: class="fragment" -->
+1. NVIDIA publishes an abstracted ISA called PTX <!-- .element: class="fragment" -->
+1. They don't publish the real machine code to see how control and data should flow <!-- .element: class="fragment" -->
+1. Maybe there's an open-source GPU uarch? <!-- .element: class="fragment" -->
+
+---
+
+## CUDA
+
+1. NVIDIA develops a parallel programming model called CUDA <!-- .element: class="fragment" -->
+1. CUDA is callable from C/C++, and more recently from Python <!-- .element: class="fragment" -->
+1. [Show and tell](https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#programming-interface) <!-- .element: class="fragment" -->
+1. Would you be interested in taking a course in GPU programming using CUDA? <!-- .element: class="fragment" -->
+
