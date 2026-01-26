@@ -17,8 +17,7 @@ title: SSH Stargate Setup
 
     <div id="terminal_win" class="div-toggle" style="display:none" markdown=1>
     For Windows:
-    - I recommend using [Git For Windows](https://gitforwindows.org/). Git Bash offers a Unix-like shell environment.
-    - If you already have [Windows Subsystem for Linux](https://learn.microsoft.com/en-us/windows/wsl/install), that's also fine
+    - I recommend using [Windows Subsystem for Linux](https://learn.microsoft.com/en-us/windows/wsl/install)
     </div>
 
 1. You may use the terminal-mode editor of your choice (e.g. micro, nano, vim, emacs)

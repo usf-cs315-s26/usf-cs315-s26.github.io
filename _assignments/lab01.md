@@ -1,8 +1,8 @@
 ---
 layout: assignment
-due: 
-github_url: 
-published: false
+due: 2025-01-28 23:59:59 -0800
+github_url: https://classroom.github.com/a/T_PGldDx
+published: true
 ---
 
 ## SSH Setup
@@ -67,12 +67,11 @@ To set up the autograder in your RISC-V environment
 
 1. Clone the repo which contains the code
     ```
-    cd
-    git clone git@github.com:/phpeterson-usf/autograder
+    uv tool install git+https://github.com/phpeterson-usf/autograder
     ```
 1. Clone the repo which contains the test cases (these will be updated during the semester)
     ```
-    git clone git@github.com:/usf-cs315-s25/tests
+    git clone git@github.com:/usf-cs315-s26/tests
     ```
 1. Edit `~/.bashrc` using a text editor (micro, vim, nano) and adding the line
     ```
@@ -87,3 +86,5 @@ To set up the autograder in your RISC-V environment
 ## Rubric
 
 100 pts as shown by the `grade` script
+
+NB: You must always create a `Makefile` for your assignments
