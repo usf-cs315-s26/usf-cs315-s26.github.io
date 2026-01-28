@@ -73,7 +73,14 @@ title: SSH Stargate Setup
     $ ssh stargate
     ```
     
-    If you are prompted for the passphrase for your private key, you probably don't have the `ssh-agent` setup correct (especially for Windows, where this is complex)
+1. Windows/WSL only: set up `ssh-agent` (this is enabled by default on MacOS)
+    ```
+    sudo apt install keychain
+    ```
+    Edit your `~/.bashrc` and add this line:
+    ```
+    eval $(keychain --eval --quiet id_ed25519)
+    ```
 
 ## Step 2: Set up `ssh` from the lab environment to `github.com`
 
