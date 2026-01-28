@@ -73,15 +73,6 @@ To set up the autograder in your RISC-V environment
     ```
     git clone git@github.com:/usf-cs315-s26/tests
     ```
-1. Edit `~/.bashrc` using a text editor (micro, vim, nano) and adding the line
-    ```
-    export PATH=~/cs315/autograder:$PATH
-    ```
-    Be careful not to add spaces around the `=`
-1. Set the new value of `PATH` in the shell environment
-    ```text
-    source ~/.bashrc
-    ```
 
 ## Rubric
 
