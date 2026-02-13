@@ -1,8 +1,8 @@
 ---
 layout: assignment
-due: 
-github_url: 
-published: false
+due: 2026-02-23 23:59:59 -0800
+github_url: https://classroom.github.com/a/QeuHM2Xd
+published: true
 ---
 
 ## Requirements
@@ -53,7 +53,7 @@ published: false
 ## Given
 
 1. We will demonstrate a framework for compiling C and assembly language source files, and calling assembly language functions from C. 
-1. We provide C implementation of `fibrec_c()`, `sumarr_rec_c()`, `is_pal_rec_c()`.
+1. We provide C implementations of `fibrec_c()`, `sumarr_rec_c()`, `is_pal_rec_c()`.
 
 ## Rubric
 
