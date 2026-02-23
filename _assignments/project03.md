@@ -89,9 +89,11 @@ The starter repo contains C implementations for each of the programs
 ## Rubric
 
 1. 80 points: automated test cases. You may need to `git pull` in the tests repo.
-1. 20 points: code quality graded offline. 
+1. Option 1: Hand in LLM code. 5 points
+1. Option 2: Write it yourself. 20 points. Graded offline (no code review meeting) 
     1. Consistent formatting
     1. No dead or redundant code
     1. No unnecessarily complex code
     1. Readable comments
     1. No build products in the repo
+    1. If you choose this option but hand in LLM code, your max score will be 70 points.
