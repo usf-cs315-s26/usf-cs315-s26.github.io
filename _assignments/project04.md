@@ -1,8 +1,8 @@
 ---
 layout: assignment
-due: 
-github_url: 
-published: false
+due: 2026-03-24 23:59:59 -0700
+github_url: https://classroom.github.com/a/_gaeGcOR
+published: true
 ---
 
 ## Requirements 
@@ -39,8 +39,7 @@ published: false
 
 **Code Review**
 
-10 pts: code walkthrough including, but not limited to, your implementation of dynamic analysis and the instruction cache.
-
-**Coding Style**
-
-20 pts: Clean repo, consistent naming and indentation, no dead code, no unnecessarily complex code
+1. Option 1: Use an LLM, 10/30 points for code review, up to 80/100 for the project
+1. Option 2: Write original code, up to 30/30 pts for code review, up to 100/100 for the project. 
+  2. Clean repo, consistent naming and indentation, no dead code, no unnecessarily complex code
+  3. Code walkthrough including your implementation of emulation, dynamic analysis, and the instruction cache.
