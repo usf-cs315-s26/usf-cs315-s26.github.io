@@ -1,8 +1,8 @@
 ---
 layout: assignment
-due: 
+due: https://classroom.github.com/a/GAc-Pf2j
 github_url: 
-published: false
+published: true
 ---
 
 ## Requirements
