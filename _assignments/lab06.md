@@ -1,7 +1,7 @@
 ---
 layout: assignment
-due: https://classroom.github.com/a/GAc-Pf2j
-github_url: 
+due: 2026-04-14 23:59:59 -0700
+github_url: https://classroom.github.com/a/GAc-Pf2j
 published: true
 ---
 
