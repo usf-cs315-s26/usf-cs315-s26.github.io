@@ -52,7 +52,7 @@ The project spec for project06 provides high-level requirements. This guide, alo
 **Outputs**
 1. `RD0` (64 bits) contains the value of the register specified by `ReadReg0`
 1. `RD1` (64 bits) contains the value of the register specified by `ReadReg1`
-1. `x0`-`x32` (64 bits) are outputs for the 32 registers 
+1. `x0`-`x31` (64 bits) are outputs for the 32 registers 
 1. You should use these as inputs to tunnels which are used to build the dashboard on the top-level circuit.
 1. You should also reflect `PC` and `PC+4` on the dashboard using tunnels, since that will be useful for debugging branch calculation
 
