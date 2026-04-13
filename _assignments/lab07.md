@@ -1,8 +1,8 @@
 ---
 layout: assignment
-due: 
-github_url: 
-published: false
+due: 2026-04-21 23:59:59
+github_url: https://classroom.github.com/a/hLUlr4Cu
+published: true
 ---
 
 ## Requirements
