@@ -74,7 +74,7 @@ You must add (using `as`, `objdump`, and `makerom3.py`) the machine code to thes
 - 23-str-to-int
 
 ## Rubric
-For interactive grading you should be able to run the autograder tests and manually execute your sort_s and merge_sort_s programs.
+For interactive grading you should be able to run the autograder tests and manually execute your sort_s and str_to_int_s programs.
 - (30 points) Automated unit tests
 - (40 points) Automated complete program tests
 - (10 points) Interactive grading question #1
