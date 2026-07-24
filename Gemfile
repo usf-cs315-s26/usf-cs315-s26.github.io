@@ -7,7 +7,7 @@ source "https://rubygems.org"
 #
 # This will help ensure the proper Jekyll version is running.
 # Happy Jekylling!
-gem "jekyll", "~> 4.3.4"
+gem "jekyll", "~> 4.4"
 # This is the default theme for new Jekyll sites. You may change this to anything you like.
 gem "minima", github: "jekyll/minima"
 # If you want to use GitHub Pages, remove the "gem "jekyll"" above and
@@ -30,3 +30,9 @@ gem "wdm", "~> 0.1.1", :platforms => [:mingw, :x64_mingw, :mswin]
 
 gem "webrick"
 gem "jekyll-remote-theme"
+
+# Libraries gemified out of Ruby's default stdlib (3.4+/4.0) that Jekyll's
+# chain still `require`s. webrick (above) is the same category.
+gem "logger"
+gem "csv"
+gem "base64"
